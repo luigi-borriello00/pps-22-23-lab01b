@@ -44,5 +44,16 @@ class LogicsImplTest {
         assertTrue(this.logics.hit(0,4));
     }
 
+    @Test
+    void testCantHitOutsideBoard(){
+        assertThrows(IndexOutOfBoundsException.class, () -> this.logics.hit(-1,0));
+        assertThrows(IndexOutOfBoundsException.class, () -> this.logics.hit(0,-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> this.logics.hit(SIZE,0));
+        assertThrows(IndexOutOfBoundsException.class, () -> this.logics.hit(0,SIZE));
+    }
+
+
+
+
 
 }

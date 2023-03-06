@@ -43,6 +43,7 @@ public class LogicsImpl implements Logics {
 		return false;
 	}
 
+
 	@Override
 	public boolean hasKnight(int row, int col) {
 		return this.knight.equals(new Pair<>(row,col));
