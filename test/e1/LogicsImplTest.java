@@ -1,5 +1,7 @@
 package e1;
 
+import e1.factory.LogicsFactory;
+import e1.factory.LogicsFactoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +13,13 @@ class LogicsImplTest {
     private final Pair<Integer, Integer> knightPosition = new Pair<>(4,0);
     private final Pair<Integer, Integer> pawnPosition = new Pair<>(0,4);
 
+    private LogicsFactory factory = new LogicsFactoryImpl();
     private Logics logics;
 
 
     @BeforeEach
     void setUp(){
-        this.logics = new LogicsImpl(SIZE, this.knightPosition, this.pawnPosition);
+        this.logics = new LogicsImpl(SIZE, this.knightPosition, this.pawnPosition, this.factory.getKnightStrategy());
     }
 
     @Test

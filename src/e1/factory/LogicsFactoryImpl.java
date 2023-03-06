@@ -11,8 +11,8 @@ public class LogicsFactoryImpl implements LogicsFactory
         return new LogicStrategy(){
 
             @Override
-            public boolean canBeMoved(int x, int y, int posX, int posY, int SIZE) {
-                if (x<0 || y<0 || x >= SIZE || y >= SIZE) {
+            public boolean canBeMoved(int x, int y, int posX, int posY, int size) {
+                if (x<0 || y<0 || x >= size || y >= size) {
                     throw new IndexOutOfBoundsException();
                 }
                 // Below a compact way to express allowed moves for the knight

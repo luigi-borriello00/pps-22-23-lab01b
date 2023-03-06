@@ -1,5 +1,7 @@
 package e1;
 
+import e1.strategy.LogicStrategy;
+
 import java.util.*;
 
 public class LogicsImpl implements Logics {
@@ -8,6 +10,8 @@ public class LogicsImpl implements Logics {
 	private Pair<Integer,Integer> knight;
 	private final Random random = new Random();
 	private final int size;
+
+	private LogicStrategy strategy;
 	 
     public LogicsImpl(int size){
     	this.size = size;
@@ -15,10 +19,11 @@ public class LogicsImpl implements Logics {
         this.knight = this.randomEmptyPosition();	
     }
 
-	public LogicsImpl(int size, Pair<Integer, Integer> knightPosition, Pair<Integer, Integer> pawnPosition) {
+	public LogicsImpl(int size, Pair<Integer, Integer> knightPosition, Pair<Integer, Integer> pawnPosition, LogicStrategy strategy) {
 		this.size = size;
 		this.knight = knightPosition;
 		this.pawn = pawnPosition;
+		this.strategy = strategy;
 	}
 
     

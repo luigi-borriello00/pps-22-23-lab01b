@@ -7,6 +7,6 @@ public interface LogicStrategy {
      * @param y
      * @return
      */
-    boolean canBeMoved(int x, int y, int posX, int posY, int SIZE);
+    boolean canBeMoved(int x, int y, int posX, int posY, int size);
 
 }
