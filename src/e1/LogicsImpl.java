@@ -1,29 +1,28 @@
 package e1;
 
-import e1.strategy.LogicStrategy;
+import e1.strategy.PieceStrategy;
 
 import java.util.*;
 
 public class LogicsImpl implements Logics {
 	
 	private final Pair<Integer,Integer> pawn;
-	private Pair<Integer,Integer> knight;
+	private Pair<Integer,Integer> piece;
 	private final Random random = new Random();
 	private final int size;
-
-	private LogicStrategy strategy;
+	private PieceStrategy pieceStrategy;
 	 
     public LogicsImpl(int size){
     	this.size = size;
         this.pawn = this.randomEmptyPosition();
-        this.knight = this.randomEmptyPosition();	
+        this.piece = this.randomEmptyPosition();
     }
 
-	public LogicsImpl(int size, Pair<Integer, Integer> knightPosition, Pair<Integer, Integer> pawnPosition, LogicStrategy strategy) {
+	public LogicsImpl(int size, Pair<Integer, Integer> piecePosition, Pair<Integer, Integer> pawnPosition, PieceStrategy strategy) {
 		this.size = size;
-		this.knight = knightPosition;
+		this.piece = piecePosition;
 		this.pawn = pawnPosition;
-		this.strategy = strategy;
+		this.pieceStrategy = strategy;
 	}
 
     
@@ -35,23 +34,19 @@ public class LogicsImpl implements Logics {
     
 	@Override
 	public boolean hit(int row, int col) {
-		if (row<0 || col<0 || row >= this.size || col >= this.size) {
-			throw new IndexOutOfBoundsException();
+		if(this.pieceStrategy.canBeMoved(row,col,this.piece.getX(),this.piece.getY(),8)){
+			this.piece = new Pair<>(row,col);
+			return this.pawn.equals(this.piece);
 		}
-		// Below a compact way to express allowed moves for the knight
-		int x = row-this.knight.getX();
-		int y = col-this.knight.getY();
-		if (x!=0 && y!=0 && Math.abs(x)+Math.abs(y)==3) {
-			this.knight = new Pair<>(row,col);
-			return this.pawn.equals(this.knight);
+		else {
+			return false;
 		}
-		return false;
 	}
 
 
 	@Override
 	public boolean hasKnight(int row, int col) {
-		return this.knight.equals(new Pair<>(row,col));
+		return this.piece.equals(new Pair<>(row,col));
 	}
 
 	@Override

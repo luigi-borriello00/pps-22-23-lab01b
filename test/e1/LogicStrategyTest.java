@@ -2,7 +2,7 @@ package e1;
 
 import e1.factory.LogicsFactory;
 import e1.factory.LogicsFactoryImpl;
-import e1.strategy.LogicStrategy;
+import e1.strategy.PieceStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ class LogicStrategyTest {
 
     private final int SIZE = 5;
     private Pair<Integer, Integer> piecePosition = new Pair<>(0, 4);
-    LogicStrategy strategy;
+    PieceStrategy strategy;
     LogicsFactory factory;
 
     @BeforeEach

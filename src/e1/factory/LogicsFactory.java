@@ -1,8 +1,8 @@
 package e1.factory;
 
-import e1.strategy.LogicStrategy;
+import e1.strategy.PieceStrategy;
 
 public interface LogicsFactory {
 
-    public LogicStrategy getKnightStrategy();
+    public PieceStrategy getKnightStrategy();
 }
