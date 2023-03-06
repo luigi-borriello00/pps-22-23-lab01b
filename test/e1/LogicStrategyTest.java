@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LogicStrategyTest {
 
     private final int SIZE = 5;
-    private Pair<Integer, Integer> piecePosition = new Pair<>(0, 4);
+    private final Pair<Integer, Integer> piecePosition = new Pair<>(0, 4);
     PieceStrategy strategy;
     LogicsFactory factory;
 
