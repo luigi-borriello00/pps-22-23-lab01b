@@ -2,7 +2,7 @@ package e1.factory;
 
 import e1.strategy.PieceStrategy;
 
-public class LogicsFactoryImpl implements LogicsFactory
+public class PieceFactoryImpl implements PieceFactory
 {
     @Override
     public PieceStrategy getKnightStrategy()

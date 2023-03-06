@@ -1,5 +1,6 @@
 package e1;
 
+import e1.factory.PieceFactoryImpl;
 import e1.position.Position;
 import e1.position.PositionImpl;
 import e1.strategy.PieceStrategy;
@@ -11,25 +12,25 @@ public class LogicsImpl implements Logics {
 	private final Position pawnPosition;
 	private final Position piecePosition;
 	private final Random random = new Random();
-	private final int size;
-	private PieceStrategy pieceStrategy;
+	private final int chessboardSize;
+	private final PieceStrategy pieceStrategy;
 	 
     public LogicsImpl(int size){
-    	this.size = size;
+		this.pieceStrategy = new PieceFactoryImpl().getKnightStrategy();
+    	this.chessboardSize = size;
         this.pawnPosition = new PositionImpl(this.randomEmptyPosition());
         this.piecePosition = new PositionImpl(this.randomEmptyPosition());
     }
 
 	public LogicsImpl(int size, Pair<Integer, Integer> piecePosition, Pair<Integer, Integer> pawnPosition, PieceStrategy strategy) {
-		this.size = size;
+		this.chessboardSize = size;
 		this.pieceStrategy = strategy;
 		this.pawnPosition = new PositionImpl(pawnPosition);
 		this.piecePosition = new PositionImpl(piecePosition);
 	}
-
     
 	private final Pair<Integer,Integer> randomEmptyPosition(){
-    	Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
+    	Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(chessboardSize),this.random.nextInt(chessboardSize));
     	// the recursive call below prevents clash with an existing pawn
     	return this.pawnPosition!=null && this.pawnPosition.getPosition().equals(pos) ? randomEmptyPosition() : pos;
     }

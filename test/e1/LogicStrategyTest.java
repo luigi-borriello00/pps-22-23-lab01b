@@ -1,7 +1,7 @@
 package e1;
 
-import e1.factory.LogicsFactory;
-import e1.factory.LogicsFactoryImpl;
+import e1.factory.PieceFactory;
+import e1.factory.PieceFactoryImpl;
 import e1.strategy.PieceStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,11 +13,11 @@ class LogicStrategyTest {
     private final int SIZE = 5;
     private final Pair<Integer, Integer> piecePosition = new Pair<>(0, 4);
     PieceStrategy strategy;
-    LogicsFactory factory;
+    PieceFactory factory;
 
     @BeforeEach
     void setUp() {
-        this.factory = new LogicsFactoryImpl();
+        this.factory = new PieceFactoryImpl();
         this.strategy = factory.getKnightStrategy();
     }
 
