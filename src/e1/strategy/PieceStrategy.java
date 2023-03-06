@@ -1,15 +1,16 @@
 package e1.strategy;
 
+import e1.Pair;
+import e1.position.PiecePosition;
+
 public interface PieceStrategy {
 
     /**
-     * @param newX the new x position
-     * @param newY the new y position
-     * @param actualX the actual x position
-     * @param actualY the actual y position
-     * @param size the size of the board
+     * @param newPosition
+     * @param actualPosition
+     * @param chessboardSize
      * @return true if the piece can be moved to the new position
      */
-    boolean canBeMoved(int newX, int newY, int actualX, int actualY, int size);
+    boolean canBeMoved(PiecePosition newPosition, PiecePosition actualPosition, int chessboardSize);
 
 }
