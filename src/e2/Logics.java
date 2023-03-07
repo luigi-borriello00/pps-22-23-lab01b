@@ -1,8 +1,11 @@
 package e2;
+import java.util.List;
 
 public interface Logics {
 
-    void setNumberOfBombs(int numberOfBombs);
+    void setBombs(int numberOfBombs);
 
     int getNumberOfBombs();
+
+    List<Pair<Integer, Integer>> getBombsList();
 }
