@@ -10,16 +10,18 @@ public class LogicsImpl implements Logics {
     private List<Pair<Integer,Integer>> bombs = new ArrayList<>();
 
     public LogicsImpl(int size, int numberOfBombs) {
+        if(numberOfBombs > size*size){
+            throw new IllegalArgumentException("Number of bombs cannot be greater than the number of cells in the board");
+        }
         this.boardSize = size;
         this.setBombs(numberOfBombs);
     }
 
     @Override
     public void setBombs(int numberOfBombs) {
-        int limitValue = Math.max(this.boardSize * this.boardSize, numberOfBombs);
         this.bombs = Stream.generate(() -> new Pair<>((int)(Math.random()*this.boardSize),(int)(Math.random()*this.boardSize)))
                 .distinct()
-                .limit(limitValue)
+                .limit(numberOfBombs)
                 .toList();
     }
 
