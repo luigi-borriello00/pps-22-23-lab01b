@@ -8,44 +8,42 @@ import java.util.*;
 
 public class LogicsImpl implements Logics {
 
-	private final PiecePosition pawnPosition;
-	private PiecePosition piecePosition;
+	private final PiecePosition targetPiece;
+	private PiecePosition attackingPiece;
+	private final PieceStrategy attackerPieceStrategy;
 	private final Random random = new Random();
 	private final int chessboardSize;
-	private final PieceStrategy pieceStrategy;
 	 
     public LogicsImpl(int size){
-		this.pieceStrategy = new PieceFactoryImpl().getKnightStrategy();
+		this.attackerPieceStrategy = new PieceFactoryImpl().getKnightStrategy();
     	this.chessboardSize = size;
-        this.pawnPosition = PiecePosition.getRandomPosition(size);
-        this.piecePosition = PiecePosition.getRandomPosition(size);
+        this.targetPiece = PiecePosition.getRandomPosition(size);
+        this.attackingPiece = PiecePosition.getRandomPosition(size);
     }
 
-	public LogicsImpl(int size, Pair<Integer, Integer> piecePosition, Pair<Integer, Integer> pawnPosition, PieceStrategy strategy) {
+	public LogicsImpl(int size, PiecePosition attackerPiecePosition, PiecePosition targetPiecePosition, PieceStrategy strategy) {
 		this.chessboardSize = size;
-		this.pieceStrategy = strategy;
-		this.pawnPosition = new PiecePosition(pawnPosition.getX(), pawnPosition.getY());
-		this.piecePosition = new PiecePosition(piecePosition.getX(), piecePosition.getY());
+		this.attackerPieceStrategy = strategy;
+		this.targetPiece = new PiecePosition(targetPiecePosition.getX(), targetPiecePosition.getY());
+		this.attackingPiece = new PiecePosition(attackerPiecePosition.getX(), attackerPiecePosition.getY());
 	}
     
 	@Override
 	public boolean hit(int row, int col) {
-		if(this.pieceStrategy.canBeMoved(new PiecePosition(row, col), this.piecePosition,this.chessboardSize)){
-			this.piecePosition = new PiecePosition(row,col);
-			return this.pawnPosition.equals(this.piecePosition);
+		if(this.attackerPieceStrategy.canBeMoved(new PiecePosition(row, col), this.attackingPiece,this.chessboardSize)){
+			this.attackingPiece = new PiecePosition(row,col);
+			return this.targetPiece.equals(this.attackingPiece);
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 
 	@Override
 	public boolean hasKnight(int row, int col) {
-		return this.piecePosition.equals(new Pair<>(row,col));
+		return this.attackingPiece.equals(new Pair<>(row,col));
 	}
 
 	@Override
 	public boolean hasPawn(int row, int col) {
-		return this.pawnPosition.equals(new Pair<>(row,col));
+		return this.targetPiece.equals(new Pair<>(row,col));
 	}
 }
