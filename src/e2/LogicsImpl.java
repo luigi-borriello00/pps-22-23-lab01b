@@ -5,7 +5,7 @@ import e2.playground.*;
 import java.util.stream.Stream;
 
 public class LogicsImpl implements Logics {
-    private Grid grid;
+    private final Grid grid;
 
 
     public LogicsImpl(int size, int numberOfBombs) {
