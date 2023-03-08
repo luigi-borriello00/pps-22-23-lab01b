@@ -1,5 +1,6 @@
 package e2;
 
+import e2.playground.Cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +31,7 @@ class LogicsTest {
     void checkIfThereAreDuplicates(){
         assertEquals(this.numberOfBombs, this.logics.getGrid().getBombs().stream().distinct().count());
     }
-/*
+
     @Test
     void testWhenBombsAreMoreThenBoardSize(){
         assertThrows(IllegalArgumentException.class, () -> new LogicsImpl(this.size, this.size*this.size+1));
@@ -38,6 +39,14 @@ class LogicsTest {
 
     @Test
     void testIfNotClickingOnBombDoesNotEndTheGame(){
+        final Cell cell = this.logics.getGrid().getCells().stream()
+                .filter(c -> !c.isBomb())
+                .findFirst().get();
+        this.logics.getGrid().click(cell);
+        assertFalse(this.logics.getGrid().isThereVictory());
+        assertFalse(cell.isBomb());
+
+        /*
         final List<Pair<Integer, Integer>> bombs = this.logics.getBombsList();
         // generate a pair that is not in this.logics.getBombsList()
         final Pair<Integer, Integer> notABomb = Stream.generate(() -> new Pair<>((int)(Math.random()*this.size),(int)(Math.random()*this.size)))
@@ -46,9 +55,9 @@ class LogicsTest {
                 .get();
 
         final boolean aMineWasFound = this.logics.isThisCellABomb(notABomb);
-        assertFalse(aMineWasFound);
+        assertFalse(aMineWasFound);*/
     }
-
+/*
     @Test
     void testIfClickingOnBombEndsTheGame(){
         final Pair<Integer, Integer> bomb = this.logics.getBombsList().get(0);

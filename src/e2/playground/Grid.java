@@ -8,8 +8,10 @@ public interface Grid {
 
     int getSize();
     Cell getCell(Pair<Integer, Integer> coordinates);
-    void click(Pair<Integer, Integer> coordinates);
+    List<Cell> getCells();
+    void click(Cell cell);
     List<Cell> getClickedCells();
+
     List<Cell> getBombs();
     List<Cell> getAdjacentCells(Pair<Integer, Integer> coordinates);
     boolean isThereVictory();

@@ -14,8 +14,11 @@ public class GridImpl implements Grid{
     public GridImpl(int size, int numberOfBombs) {
         this.size = size;
         this.cells = new ArrayList<>(size*size);
+        if(numberOfBombs > size*size)
+            throw new IllegalArgumentException("Too many bombs");
         this.createCells();
         this.setBombs(numberOfBombs);
+
     }
 
     private void createCells(){
@@ -45,7 +48,12 @@ public class GridImpl implements Grid{
     }
 
     @Override
-    public void click(Pair<Integer, Integer> coordinates) {
+    public List<Cell> getCells() {
+        return this.cells;
+    }
+
+    @Override
+    public void click(Cell coordinates) {
 
     }
 
