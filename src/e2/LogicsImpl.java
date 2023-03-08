@@ -8,6 +8,7 @@ public class LogicsImpl implements Logics {
 
     private final int boardSize;
     private List<Pair<Integer,Integer>> bombs = new ArrayList<>();
+    private List<Pair<Integer,Integer>> clicked = new ArrayList<>();
 
     public LogicsImpl(int size, int numberOfBombs) {
         if(numberOfBombs > size*size){
@@ -31,7 +32,19 @@ public class LogicsImpl implements Logics {
     }
 
     @Override
+    public boolean isThisCellABomb(Pair<Integer, Integer> cell) {
+        return this.bombs.contains(cell);
+    }
+
+    @Override
     public List<Pair<Integer, Integer>> getBombsList() {
         return this.bombs;
+    }
+
+    @Override
+    public void click(Pair<Integer, Integer> cell) {
+        if(this.isThisCellABomb(cell)){
+            this.clicked.add(cell);
+        }
     }
 }
