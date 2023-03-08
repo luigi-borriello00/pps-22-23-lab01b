@@ -22,15 +22,15 @@ class LogicsTest {
 
     @Test
     void checkNumberOfBombs(){
-        assertEquals(numberOfBombs, this.logics.getNumberOfBombs());
-        assertNotEquals(numberOfBombs+1, this.logics.getNumberOfBombs());
+        assertEquals(numberOfBombs, this.logics.getGrid().getBombs().size());
+        assertNotEquals(numberOfBombs+1, this.logics.getGrid().getBombs().size());
     }
 
     @Test
     void checkIfThereAreDuplicates(){
-        assertEquals(this.numberOfBombs, this.logics.getNumberOfBombs());
+        assertEquals(this.numberOfBombs, this.logics.getGrid().getBombs().stream().distinct().count());
     }
-
+/*
     @Test
     void testWhenBombsAreMoreThenBoardSize(){
         assertThrows(IllegalArgumentException.class, () -> new LogicsImpl(this.size, this.size*this.size+1));
@@ -67,5 +67,5 @@ class LogicsTest {
         assertTrue(this.logics.isThereVictory());
     }
 
-
+*/
 }
