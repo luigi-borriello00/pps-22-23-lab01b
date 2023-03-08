@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LogicsTest {
 
+
     private final int size = 5;
     private final int numberOfBombs = 3;
     private Logics logics;
@@ -63,7 +64,8 @@ class LogicsTest {
 
     @Test
     void testNumberOfAdjacentCells(){
-        final Cell cell = this.logics.getGrid().getCells().get(6);
+        final int cellNotInEdges = 6;
+        final Cell cell = this.logics.getGrid().getCells().get(cellNotInEdges);
         final List<Cell> adjacentCells = this.logics.getGrid().getAdjacentCells(cell);
         assertEquals(8, adjacentCells.size());
     }
@@ -73,6 +75,10 @@ class LogicsTest {
         final Cell cell = this.logics.getGrid().getCells().get(0);
         final List<Cell> adjacentCells = this.logics.getGrid().getAdjacentCells(cell);
         assertEquals(3, adjacentCells.size());
+        final List<Cell> cellsInTheEdges = this.logics.getGrid().getCells().stream()
+                .filter(c -> this.logics.getGrid().getAdjacentCells(c).size() == 3)
+                .toList();
+        assertEquals(4, cellsInTheEdges.size());
     }
 
 
