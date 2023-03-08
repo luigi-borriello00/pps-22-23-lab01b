@@ -53,17 +53,14 @@ class LogicsTest {
         assertTrue(this.logics.isGameOver());
     }
 
-    /*
+
     @Test
     void testIfVictoryIsAchieved(){
-        // implement this using stream
-        final List<Pair<Integer, Integer>> bombs = this.logics.getBombsList();
-        Stream.generate(() -> new Pair<>((int)(Math.random()*this.size),(int)(Math.random()*this.size)))
-                .filter(p -> !bombs.contains(p))
-                .limit(this.size*this.size - this.numberOfBombs)
-                .forEach(p -> this.logics.click(p));
+        this.logics.getGrid().getCells().stream()
+                .filter(cell -> !cell.isBomb())
+                .forEach(Cell::click);
         assertTrue(this.logics.isThereVictory());
     }
 
-*/
+
 }
