@@ -53,7 +53,6 @@ class LogicsTest {
         assertTrue(this.logics.isGameOver());
     }
 
-
     @Test
     void testIfVictoryIsAchieved(){
         this.logics.getGrid().getCells().stream()
