@@ -74,8 +74,4 @@ public class GridImpl implements Grid{
         return null;
     }
 
-    @Override
-    public boolean isThereVictory() {
-        return false;
-    }
 }

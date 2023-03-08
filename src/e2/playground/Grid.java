@@ -14,5 +14,5 @@ public interface Grid {
 
     List<Cell> getBombs();
     List<Cell> getAdjacentCells(Pair<Integer, Integer> coordinates);
-    boolean isThereVictory();
+
 }

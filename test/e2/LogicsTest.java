@@ -43,28 +43,17 @@ class LogicsTest {
                 .filter(c -> !c.isBomb())
                 .findFirst().get();
         this.logics.getGrid().click(cell);
-        assertFalse(this.logics.getGrid().isThereVictory());
+        assertFalse(this.logics.isThereVictory());
         assertFalse(cell.isBomb());
-
-        /*
-        final List<Pair<Integer, Integer>> bombs = this.logics.getBombsList();
-        // generate a pair that is not in this.logics.getBombsList()
-        final Pair<Integer, Integer> notABomb = Stream.generate(() -> new Pair<>((int)(Math.random()*this.size),(int)(Math.random()*this.size)))
-                .filter(p -> !bombs.contains(p))
-                .findFirst()
-                .get();
-
-        final boolean aMineWasFound = this.logics.isThisCellABomb(notABomb);
-        assertFalse(aMineWasFound);*/
     }
-/*
+
     @Test
     void testIfClickingOnBombEndsTheGame(){
-        final Pair<Integer, Integer> bomb = this.logics.getBombsList().get(0);
-        final boolean aMineWasFound = this.logics.isThisCellABomb(bomb);
-        assertTrue(aMineWasFound);
+        this.logics.getGrid().getBombs().get(0).click();
+        assertTrue(this.logics.isGameOver());
     }
 
+    /*
     @Test
     void testIfVictoryIsAchieved(){
         // implement this using stream

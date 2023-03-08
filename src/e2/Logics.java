@@ -7,4 +7,8 @@ public interface Logics {
 
 
     Grid getGrid();
+
+    boolean isThereVictory();
+
+    boolean isGameOver();
 }
