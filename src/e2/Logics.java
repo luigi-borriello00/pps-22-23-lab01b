@@ -7,9 +7,12 @@ public interface Logics {
 
     int getNumberOfBombs();
 
-    boolean isThisCellABomb(Pair<Integer, Integer> cell);
-
     List<Pair<Integer, Integer>> getBombsList();
 
     void click(Pair<Integer, Integer> cell);
+
+    boolean isThisCellABomb(Pair<Integer, Integer> cell);
+
+    boolean isThereVictory();
+
 }

@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LogicsTest {
 
-    private final int size = 100;
-    private final int numberOfBombs = 101;
+    private final int size = 10;
+    private final int numberOfBombs = 90;
     private Logics logics;
 
     @BeforeEach
@@ -54,6 +54,17 @@ class LogicsTest {
         final Pair<Integer, Integer> bomb = this.logics.getBombsList().get(0);
         final boolean aMineWasFound = this.logics.isThisCellABomb(bomb);
         assertTrue(aMineWasFound);
+    }
+
+    @Test
+    void testIfVictoryIsAchieved(){
+        // implement this using stream
+        final List<Pair<Integer, Integer>> bombs = this.logics.getBombsList();
+        Stream.generate(() -> new Pair<>((int)(Math.random()*this.size),(int)(Math.random()*this.size)))
+                .filter(p -> !bombs.contains(p))
+                .limit(this.size*this.size - this.numberOfBombs)
+                .forEach(p -> this.logics.click(p));
+        assertTrue(this.logics.isThereVictory());
     }
 
 
