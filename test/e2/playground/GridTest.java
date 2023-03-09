@@ -26,12 +26,12 @@ class GridTest {
 
     @Test
     void testIfNumberOfBombsIsCorrect(){
-        assertEquals(this.numberOfBombs, this.grid.getBombs().size());
+        assertEquals(this.numberOfBombs, this.grid.getMines().size());
     }
 
     @Test
     void checkIfThereAreDuplicates(){
-        assertEquals(this.numberOfBombs, this.grid.getBombs().stream().distinct().count());
+        assertEquals(this.numberOfBombs, this.grid.getMines().stream().distinct().count());
     }
 
     @Test
@@ -66,20 +66,6 @@ class GridTest {
                 .filter(c -> this.grid.getAdjacentCells(c).size() == 3)
                 .toList();
         assertEquals(4, cellsInTheEdges.size());
-    }
-
-    @Test
-    void testCombo(){
-
-        assertEquals(0, grid.getClickedCells().size());
-        final Cell cell = grid.getCells().stream()
-                .filter(c -> !c.isBomb())
-                .filter(c -> this.grid.getAdjacentCells(c).stream().count() == 8)
-                .filter(c -> this.grid.getAdjacentCells(c).stream().noneMatch(Cell::isBomb))
-                .findFirst()
-                .orElseThrow();
-        this.grid.clickCell(cell);
-        assertEquals(9, this.grid.getClickedCells().size());
     }
 
 }

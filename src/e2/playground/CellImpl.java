@@ -22,7 +22,7 @@ public class CellImpl implements Cell {
     }
 
     @Override
-    public boolean isBomb() {
+    public boolean isAMine() {
         return this.isBomb;
     }
 
@@ -32,7 +32,7 @@ public class CellImpl implements Cell {
     }
 
     @Override
-    public void setBomb() {
+    public void setMine() {
         this.isBomb = true;
     }
 
@@ -47,7 +47,7 @@ public class CellImpl implements Cell {
     }
 
     @Override
-    public int getCounterOfAdjacentBombs() {
+    public int getAdjacentMinesCounter() {
         return this.counterOfAdjacentBombs;
     }
 
@@ -57,7 +57,7 @@ public class CellImpl implements Cell {
     }
 
     @Override
-    public void setCounterOfAdjacentBombs(int counter) {
+    public void setAdjacentMinesCounter(int counter) {
         this.counterOfAdjacentBombs = counter;
     }
 }

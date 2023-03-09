@@ -1,7 +1,5 @@
 package e2;
 
-import e2.playground.Cell;
-
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
@@ -29,8 +27,8 @@ public class GUI extends JFrame {
             final JButton bt = (JButton)e.getSource();
             final Pair<Integer,Integer> pos = buttons.get(bt);
             // call the logic here to tell it that cell at 'pos' has been selected
-
-            boolean aMineWasFound = this.logics.clickCell(pos);// call the logic here to tell it that cell at 'pos' has been seleced
+            this.logics.clickCell(pos);
+            boolean aMineWasFound = this.logics.isAMine(pos);// call the logic here to tell it that cell at 'pos' has been seleced
             if (aMineWasFound) {
                 quitGame();
                 JOptionPane.showMessageDialog(this, "You lost!!");
@@ -89,7 +87,7 @@ public class GUI extends JFrame {
     }
 
     private void drawMineCell(Pair<Integer, Integer> cell, JButton button){
-        if(this.logics.getBombsCells().contains(cell)){
+        if(this.logics.getMines().contains(cell)){
             button.setText("*");
         }
     }
@@ -104,8 +102,8 @@ public class GUI extends JFrame {
     }
 
     private void drawCounterOnCell(Pair<Integer, Integer> cell, JButton button){
-        if(this.logics.getAdjacentBombs(cell) > 0){
-            button.setText(String.valueOf(this.logics.getAdjacentBombs(cell)));
+        if(this.logics.getAdjacentMinesCounter(cell) > 0){
+            button.setText(String.valueOf(this.logics.getAdjacentMinesCounter(cell)));
         }
     }
 

@@ -11,13 +11,13 @@ public class GridImpl implements Grid {
     private final int size;
     private final List<Cell> cells;
 
-    public GridImpl(int size, int numberOfBombs) {
+    public GridImpl(int size, int numberOfMines) {
         this.size = size;
         this.checkIfSizeIsCorrect(size);
         this.cells = new ArrayList<>(size * size);
-        this.checkIfNumberOfBombsIsCorrect(numberOfBombs);
+        this.validateNumberOfMines(numberOfMines);
         this.createCells();
-        this.setBombs(numberOfBombs);
+        this.setBombs(numberOfMines);
 
     }
 
@@ -26,8 +26,8 @@ public class GridImpl implements Grid {
             throw new IllegalArgumentException("Size must be greater than 0");
     }
 
-    private void checkIfNumberOfBombsIsCorrect(int numberOfBombs) {
-        if (numberOfBombs > this.size * this.size)
+    private void validateNumberOfMines(int numberOfMines) {
+        if (numberOfMines > this.size * this.size)
             throw new IllegalArgumentException("Too many bombs");
     }
 
@@ -39,12 +39,12 @@ public class GridImpl implements Grid {
                         .forEach(j -> this.cells.add(new CellImpl(new Pair<>(i, j)))));
     }
 
-    private void setBombs(int numberOfBombs) {
+    private void setBombs(int numberOfMines) {
         Stream.generate(() -> new Pair<>((int) (Math.random() * this.size), (int) (Math.random() * this.size)))
                 .distinct()
-                .limit(numberOfBombs)
+                .limit(numberOfMines)
                 .forEach(pair -> this.cells.get(pair.getX() * this.size + pair.getY())
-                        .setBomb());
+                        .setMine());
 
     }
 
@@ -54,14 +54,22 @@ public class GridImpl implements Grid {
     }
 
     @Override
+    public Cell getCellFromCoordinates(Pair<Integer, Integer> coordinates) {
+        return this.cells.stream()
+                .filter(cell -> cell.getCoordinates().equals(coordinates))
+                .findFirst()
+                .orElseThrow();
+    }
+
+    @Override
     public List<Cell> getCells() {
         return this.cells;
     }
 
     @Override
-    public List<Cell> getBombs() {
+    public List<Cell> getMines() {
         return this.cells.stream()
-                .filter(Cell::isBomb)
+                .filter(Cell::isAMine)
                 .toList();
     }
 
@@ -84,36 +92,5 @@ public class GridImpl implements Grid {
                 .toList();
     }
 
-    @Override
-    public boolean clickCell(Cell targetCell) {
-        targetCell.click();
-        if(!targetCell.isBomb()){
-            this.setCounterOfAdjacentBombs(targetCell);
-            this.checkCombo(targetCell);
-            return false;
-        }
-        return true;
-    }
-    private void setCounterOfAdjacentBombs(Cell targetCell) {
-        List<Cell> adjacentBombs = this.getAdjacentCells(targetCell).stream().
-                filter(Cell::isBomb)
-                .toList();
-        targetCell.setCounterOfAdjacentBombs(adjacentBombs.size());
-    }
-
-    private void checkCombo(Cell targetCell) {
-        List<Cell> adjacentCells = this.getAdjacentCells(targetCell);
-        if(!targetCell.isBomb()){
-            List<Cell> adjacentBombs = adjacentCells.stream()
-                    .filter(Cell::isBomb)
-                    .toList();
-
-            if (adjacentBombs.size() == 0){
-                adjacentCells.forEach(Cell::click);
-                adjacentCells.forEach(this::setCounterOfAdjacentBombs);
-            }
-        }
-
-    }
 
 }

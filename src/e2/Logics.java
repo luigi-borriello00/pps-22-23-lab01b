@@ -1,5 +1,4 @@
 package e2;
-import e2.playground.Grid;
 
 import java.util.List;
 
@@ -9,15 +8,14 @@ public interface Logics {
     List<Pair<Integer, Integer>> getAllCells();
     List<Pair<Integer, Integer>> getClickedCells();
     List<Pair<Integer, Integer>> getFlaggedCells();
-    List<Pair<Integer, Integer>> getBombsCells();
+    List<Pair<Integer, Integer>> getMines();
 
-    boolean clickCell(Pair<Integer, Integer> coordinates);
-
-    void toggleFlag(Pair<Integer, Integer> coordinates);
-
-    int getAdjacentBombs(Pair<Integer, Integer> coordinates);
-
+    void clickCell(Pair<Integer, Integer> cellCoordinates);
+    void toggleFlag(Pair<Integer, Integer> cellCoordinates);
+    boolean isAMine(Pair<Integer, Integer> cellCoordinates);
+    int getAdjacentMinesCounter(Pair<Integer, Integer> cellCoordinates);
     boolean isThereVictory();
 
     boolean isGameOver();
+
 }

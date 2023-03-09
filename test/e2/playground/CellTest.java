@@ -22,7 +22,7 @@ class CellTest {
 
     @Test
     void testIsInitiallyNotBomb() {
-        assertFalse(this.cell.isBomb());
+        assertFalse(this.cell.isAMine());
     }
 
     @Test
@@ -38,8 +38,8 @@ class CellTest {
 
     @Test
     void testIsBomb() {
-        this.cell.setBomb();
-        assertTrue(this.cell.isBomb());
+        this.cell.setMine();
+        assertTrue(this.cell.isAMine());
     }
 
     @Test
@@ -64,13 +64,13 @@ class CellTest {
 
     @Test
     void testInitiallyCounterOfAdjacentBombsIsZero() {
-        assertEquals(0, this.cell.getCounterOfAdjacentBombs());
+        assertEquals(0, this.cell.getAdjacentMinesCounter());
     }
 
     @Test
     void testGetCounterOfAdjacentBombs() {
-        this.cell.setCounterOfAdjacentBombs(3);
-        assertEquals(3, this.cell.getCounterOfAdjacentBombs());
+        this.cell.setAdjacentMinesCounter(3);
+        assertEquals(3, this.cell.getAdjacentMinesCounter());
     }
 
     @Test

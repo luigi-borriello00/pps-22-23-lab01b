@@ -3,14 +3,12 @@ package e2;
 import e2.playground.*;
 
 import java.util.List;
-import java.util.Optional;
 
 public class LogicsImpl implements Logics {
     private final Grid grid;
 
-
-    public LogicsImpl(int size, int numberOfBombs) {
-        this.grid = new GridImpl(size, numberOfBombs);
+    public LogicsImpl(int size, int numberOfMines) {
+        this.grid = new GridImpl(size, numberOfMines);
     }
 
     @Override
@@ -37,50 +35,79 @@ public class LogicsImpl implements Logics {
     }
 
     @Override
-    public List<Pair<Integer, Integer>> getBombsCells() {
-        return this.grid.getBombs().stream()
+    public List<Pair<Integer, Integer>> getMines() {
+        return this.grid.getMines().stream()
                 .map(Cell::getCoordinates)
                 .toList();
     }
-
-    @Override
-    public boolean clickCell(Pair<Integer, Integer> coordinates) {
-        return this.grid.clickCell(grid.getCells().stream()
-                .filter(cell -> cell.getCoordinates().equals(coordinates))
-                .findFirst()
-                .orElseThrow());
+    private void setAdjacentMinesCounter(Cell targetCell) {
+        List<Cell> adjacentMines = this.grid.getAdjacentCells(targetCell).stream()
+                .filter(Cell::isAMine)
+                .toList();
+        targetCell.setAdjacentMinesCounter(adjacentMines.size());
     }
 
     @Override
-    public void toggleFlag(Pair<Integer, Integer> coordinates) {
+    public void clickCell(Pair<Integer, Integer> cellCoordinates) {
+        Cell targetCell = this.grid.getCellFromCoordinates(cellCoordinates);
+        targetCell.click();
+        if(!targetCell.isAMine()){
+            this.setAdjacentMinesCounter(targetCell);
+            this.checkCombo(targetCell);
+        }
+    }
+
+    private void checkCombo(Cell targetCell) {
+        List<Cell> adjacentCells = this.grid.getAdjacentCells(targetCell);
+        if(!targetCell.isAMine()){
+            List<Cell> adjacentMines = adjacentCells.stream()
+                    .filter(Cell::isAMine)
+                    .toList();
+            if (adjacentMines.size() == 0){
+                adjacentCells.forEach(Cell::click);
+                adjacentCells.forEach(this::setAdjacentMinesCounter);
+            }
+        }
+
+    }
+
+    @Override
+    public void toggleFlag(Pair<Integer, Integer> cellCoordinates) {
         this.grid.getCells().stream()
-                .filter(cell -> cell.getCoordinates().equals(coordinates))
+                .filter(cell -> cell.getCoordinates().equals(cellCoordinates))
                 .findFirst()
                 .orElseThrow().toggleFlag();
     }
 
     @Override
-    public int getAdjacentBombs(Pair<Integer, Integer> coordinates) {
+    public boolean isAMine(Pair<Integer, Integer> cellCoordinates) {
+        return this.grid.getMines().contains(this.grid.getCellFromCoordinates(cellCoordinates));
+    }
+
+    @Override
+    public int getAdjacentMinesCounter(Pair<Integer, Integer> cellCoordinates) {
        Cell targetCell = this.grid.getCells().stream()
-                .filter(cell -> cell.getCoordinates().equals(coordinates))
+                .filter(cell -> cell.getCoordinates().equals(cellCoordinates))
                 .findFirst()
                 .orElseThrow();
-        return targetCell.getCounterOfAdjacentBombs();
+        return targetCell.getAdjacentMinesCounter();
 
     }
 
     @Override
     public boolean isThereVictory() {
         return this.grid.getCells().stream()
-                .filter(cell -> !cell.isBomb())
+                .filter(cell -> !cell.isAMine())
                 .allMatch(Cell::isClicked);
     }
 
     @Override
     public boolean isGameOver() {
         return this.grid.getCells().stream()
-                .filter(Cell::isBomb)
+                .filter(Cell::isAMine)
                 .anyMatch(Cell::isClicked);
     }
+
+
 
 }

@@ -5,13 +5,13 @@ import e2.Pair;
 public interface Cell {
 
     boolean isClicked();
-    boolean isBomb();
+    boolean isAMine();
     boolean hasFlag();
-    void setBomb();
+    void setMine();
     void toggleFlag();
     void click();
-    int getCounterOfAdjacentBombs();
-    void setCounterOfAdjacentBombs(int counter);
+    int getAdjacentMinesCounter();
+    void setAdjacentMinesCounter(int counter);
 
     Pair<Integer, Integer> getCoordinates();
 
