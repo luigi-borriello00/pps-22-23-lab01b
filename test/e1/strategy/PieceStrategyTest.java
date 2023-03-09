@@ -1,15 +1,15 @@
-package e1;
+package e1.strategy;
 
+import e1.Pair;
 import e1.factory.PieceFactory;
 import e1.factory.PieceFactoryImpl;
 import e1.position.PiecePosition;
-import e1.strategy.PieceStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LogicStrategyTest {
+class PieceStrategyTest {
 
     private final int SIZE = 5;
     private final Pair<Integer, Integer> piecePosition = new Pair<>(0, 4);
