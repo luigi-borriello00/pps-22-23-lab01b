@@ -8,6 +8,7 @@ public class CellImpl implements Cell {
     private boolean isClicked;
     private boolean isBomb;
     private boolean hasFlag;
+    private int counterOfAdjacentBombs;
 
     public CellImpl(Pair<Integer, Integer> coordinates) {
         this.coordinates = coordinates;
@@ -36,7 +37,7 @@ public class CellImpl implements Cell {
     }
 
     @Override
-    public void togglieFlag() {
+    public void toggleFlag() {
         this.hasFlag = !this.hasFlag;
     }
 
@@ -46,7 +47,17 @@ public class CellImpl implements Cell {
     }
 
     @Override
+    public int getCounterOfAdjacentBombs() {
+        return this.counterOfAdjacentBombs;
+    }
+
+    @Override
     public Pair<Integer, Integer> getCoordinates() {
         return coordinates;
+    }
+
+    @Override
+    public void setCounterOfAdjacentBombs(int counter) {
+        this.counterOfAdjacentBombs = counter;
     }
 }

@@ -13,6 +13,7 @@ public class GridImpl implements Grid {
 
     public GridImpl(int size, int numberOfBombs) {
         this.size = size;
+        this.checkIfSizeIsCorrect(size);
         this.cells = new ArrayList<>(size * size);
         this.checkIfNumberOfBombsIsCorrect(numberOfBombs);
         this.createCells();
@@ -84,13 +85,35 @@ public class GridImpl implements Grid {
     }
 
     @Override
-    public void checkCombo(Cell targetCell) {
+    public boolean clickCell(Cell targetCell) {
+        targetCell.click();
+        if(!targetCell.isBomb()){
+            this.setCounterOfAdjacentBombs(targetCell);
+            this.checkCombo(targetCell);
+            return false;
+        }
+        return true;
+    }
+    private void setCounterOfAdjacentBombs(Cell targetCell) {
+        List<Cell> adjacentBombs = this.getAdjacentCells(targetCell).stream().
+                filter(Cell::isBomb)
+                .toList();
+        targetCell.setCounterOfAdjacentBombs(adjacentBombs.size());
+    }
+
+    private void checkCombo(Cell targetCell) {
         List<Cell> adjacentCells = this.getAdjacentCells(targetCell);
         if(!targetCell.isBomb()){
-            if (adjacentCells.stream().noneMatch(Cell::isBomb)){
+            List<Cell> adjacentBombs = adjacentCells.stream()
+                    .filter(Cell::isBomb)
+                    .toList();
+
+            if (adjacentBombs.size() == 0){
                 adjacentCells.forEach(Cell::click);
+                adjacentCells.forEach(this::setCounterOfAdjacentBombs);
             }
         }
+
     }
 
 }

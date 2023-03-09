@@ -11,7 +11,5 @@ public interface Grid {
     List<Cell> getBombs();
     List<Cell> getClickedCells();
     List<Cell> getAdjacentCells(Cell targetCell);
-    void checkCombo(Cell targetCell);
-
-
+    boolean clickCell(Cell targetCell);
 }

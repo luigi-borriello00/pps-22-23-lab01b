@@ -8,7 +8,11 @@ public interface Cell {
     boolean isBomb();
     boolean hasFlag();
     void setBomb();
-    void togglieFlag();
+    void toggleFlag();
     void click();
+    int getCounterOfAdjacentBombs();
+    void setCounterOfAdjacentBombs(int counter);
+
     Pair<Integer, Integer> getCoordinates();
+
 }
