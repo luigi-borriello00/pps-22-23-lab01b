@@ -7,6 +7,7 @@ public class CellImpl implements Cell {
     private final Pair<Integer, Integer> coordinates;
     private boolean isClicked;
     private boolean isBomb;
+    private boolean hasFlag;
 
     public CellImpl(Pair<Integer, Integer> coordinates) {
         this.coordinates = coordinates;
@@ -25,8 +26,18 @@ public class CellImpl implements Cell {
     }
 
     @Override
+    public boolean hasFlag() {
+        return this.hasFlag;
+    }
+
+    @Override
     public void setBomb() {
         this.isBomb = true;
+    }
+
+    @Override
+    public void togglieFlag() {
+        this.hasFlag = !this.hasFlag;
     }
 
     @Override

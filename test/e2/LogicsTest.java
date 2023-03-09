@@ -81,5 +81,21 @@ class LogicsTest {
         assertEquals(4, cellsInTheEdges.size());
     }
 
+    @Test
+    void testIfCellsCanBeFlagged(){
+        final List<Cell> cells = this.logics.getGrid().getCells().stream()
+                .filter(c -> !c.isBomb())
+                .toList();
+        int numberOfFlags = 4;
+        cells.stream()
+                .limit(numberOfFlags)
+                .forEach(Cell::togglieFlag);
+        List<Cell> flaggedCells = this.logics.getGrid().getCells().stream()
+                .filter(Cell::hasFlag)
+                .toList();
+        assertEquals(numberOfFlags, flaggedCells.size());
+
+    }
+
 
 }
