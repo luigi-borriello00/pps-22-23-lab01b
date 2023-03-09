@@ -20,6 +20,11 @@ public class GridImpl implements Grid {
 
     }
 
+    private void checkIfSizeIsCorrect(int size) {
+        if (size < 1)
+            throw new IllegalArgumentException("Size must be greater than 0");
+    }
+
     private void checkIfNumberOfBombsIsCorrect(int numberOfBombs) {
         if (numberOfBombs > this.size * this.size)
             throw new IllegalArgumentException("Too many bombs");
@@ -60,6 +65,13 @@ public class GridImpl implements Grid {
     }
 
     @Override
+    public List<Cell> getClickedCells() {
+        return this.cells.stream()
+                .filter(Cell::isClicked)
+                .toList();
+    }
+
+    @Override
     public List<Cell> getAdjacentCells(Cell targetCell) {
         // check also in the edges
         return this.cells.stream()
@@ -69,6 +81,16 @@ public class GridImpl implements Grid {
                         && cell.getCoordinates().getY() <= targetCell.getCoordinates().getY() + 1
                         && !cell.equals(targetCell))
                 .toList();
+    }
+
+    @Override
+    public void checkCombo(Cell targetCell) {
+        List<Cell> adjacentCells = this.getAdjacentCells(targetCell);
+        if(!targetCell.isBomb()){
+            if (adjacentCells.stream().noneMatch(Cell::isBomb)){
+                adjacentCells.forEach(Cell::click);
+            }
+        }
     }
 
 }

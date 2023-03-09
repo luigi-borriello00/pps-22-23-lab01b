@@ -3,6 +3,7 @@ package e2;
 import e2.playground.Cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -94,6 +95,26 @@ class LogicsTest {
                 .filter(Cell::hasFlag)
                 .toList();
         assertEquals(numberOfFlags, flaggedCells.size());
+
+    }
+
+    @Test
+    void testCombo(){
+
+        assertEquals(0, this.logics.getGrid().getClickedCells().size());
+        final Cell cell = this.logics.getGrid().getCells().stream()
+                .filter(c -> !c.isBomb())
+                .filter(c -> this.logics.getGrid().getAdjacentCells(c).stream().count() == 8)
+                .filter(c -> this.logics.getGrid().getAdjacentCells(c).stream().noneMatch(Cell::isBomb))
+                .findFirst().get();
+        cell.click();
+        this.logics.getGrid().checkCombo(cell);
+        assertEquals(9, this.logics.getGrid().getClickedCells().size());
+    }
+
+    @Test
+    void testGridSize(){
+        assertThrows(IllegalArgumentException.class, () -> new LogicsImpl(0, 10));
 
     }
 
