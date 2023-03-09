@@ -29,10 +29,8 @@ public class GUI extends JFrame {
             final JButton bt = (JButton)e.getSource();
             final Pair<Integer,Integer> pos = buttons.get(bt);
             // call the logic here to tell it that cell at 'pos' has been selected
-            Cell targetCell = this.logics.getGrid().getCells().stream()
-                    .filter(cell -> cell.getCoordinates().equals(pos))
-                    .findFirst().get();
-            boolean aMineWasFound = this.logics.getGrid().clickCell(targetCell);;// call the logic here to tell it that cell at 'pos' has been seleced
+
+            boolean aMineWasFound = this.logics.clickCell(pos);// call the logic here to tell it that cell at 'pos' has been seleced
             if (aMineWasFound) {
                 quitGame();
                 JOptionPane.showMessageDialog(this, "You lost!!");
@@ -54,9 +52,7 @@ public class GUI extends JFrame {
                 if (bt.isEnabled()){
                     final Pair<Integer,Integer> pos = buttons.get(bt);
                     // call the logic here to put/remove a flag
-                    logics.getGrid().getCells().stream()
-                            .filter(cell -> cell.getCoordinates().equals(pos))
-                            .findFirst().get().toggleFlag();
+                    logics.toggleFlag(pos);
 
                 }
                 drawBoard(); 
@@ -85,21 +81,21 @@ public class GUI extends JFrame {
     	}
     }
 
-    private void drawClickedCell(Cell cell, JButton button){
-        if(cell.isClicked()){
+    private void drawClickedCell(Pair<Integer, Integer> cell, JButton button){
+        if(this.logics.getClickedCells().contains(cell)){
             button.setEnabled(false);
             this.drawCounterOnCell(cell, button);
         }
     }
 
-    private void drawMineCell(Cell cell, JButton button){
-        if(cell.isBomb()){
+    private void drawMineCell(Pair<Integer, Integer> cell, JButton button){
+        if(this.logics.getBombsCells().contains(cell)){
             button.setText("*");
         }
     }
 
-    private void drawCellWithFlag(Cell cell, JButton button){
-        if(cell.hasFlag()){
+    private void drawCellWithFlag(Pair<Integer, Integer> cell, JButton button){
+        if(this.logics.getFlaggedCells().contains(cell)){
             button.setText("F");
         }
         else{
@@ -107,9 +103,9 @@ public class GUI extends JFrame {
         }
     }
 
-    private void drawCounterOnCell(Cell cell, JButton button){
-        if(cell.getCounterOfAdjacentBombs() > 0){
-            button.setText(String.valueOf(cell.getCounterOfAdjacentBombs()));
+    private void drawCounterOnCell(Pair<Integer, Integer> cell, JButton button){
+        if(this.logics.getAdjacentBombs(cell) > 0){
+            button.setText(String.valueOf(this.logics.getAdjacentBombs(cell)));
         }
     }
 
@@ -118,9 +114,7 @@ public class GUI extends JFrame {
         for (var entry: this.buttons.entrySet()) {
 
             // call the logic here
-            Cell entryCell = this.logics.getGrid().getCells().stream()
-                    .filter(cell -> cell.getCoordinates().equals(entry.getValue()))
-                    .findFirst().get();
+            final Pair<Integer,Integer> entryCell = entry.getValue();
 
             // if this button has a flag, put the flag
             this.drawCellWithFlag(entryCell, entry.getKey());

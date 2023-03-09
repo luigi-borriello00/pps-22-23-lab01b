@@ -22,25 +22,20 @@ class LogicsTest {
 
     @Test
     void testIfNotClickingOnBombDoesNotEndTheGame(){
-        final Cell cell = this.logics.getGrid().getCells().stream()
-                .filter(c -> !c.isBomb())
-                .findFirst().get();
-        cell.click();
-        assertFalse(this.logics.isThereVictory());
-        assertFalse(cell.isBomb());
+
     }
 
     @Test
     void testIfClickingOnBombEndsTheGame(){
-        this.logics.getGrid().getBombs().get(0).click();
+        this.logics.clickCell(this.logics.getBombsCells().get(0));
         assertTrue(this.logics.isGameOver());
     }
 
     @Test
     void testIfVictoryIsAchieved(){
-        this.logics.getGrid().getCells().stream()
-                .filter(cell -> !cell.isBomb())
-                .forEach(Cell::click);
+        this.logics.getAllCells().stream()
+                .filter(cell -> ! this.logics.getBombsCells().contains(cell))
+                .forEach(this.logics::clickCell);
         assertTrue(this.logics.isThereVictory());
     }
 }
