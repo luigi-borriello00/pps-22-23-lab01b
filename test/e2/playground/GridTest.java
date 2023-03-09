@@ -76,7 +76,8 @@ class GridTest {
                 .filter(c -> !c.isBomb())
                 .filter(c -> this.grid.getAdjacentCells(c).stream().count() == 8)
                 .filter(c -> this.grid.getAdjacentCells(c).stream().noneMatch(Cell::isBomb))
-                .findFirst().get();
+                .findFirst()
+                .orElseThrow();
         this.grid.clickCell(cell);
         assertEquals(9, this.grid.getClickedCells().size());
     }

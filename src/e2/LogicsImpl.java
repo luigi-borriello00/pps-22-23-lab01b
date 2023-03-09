@@ -3,7 +3,7 @@ package e2;
 import e2.playground.*;
 
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 public class LogicsImpl implements Logics {
     private final Grid grid;
@@ -47,21 +47,24 @@ public class LogicsImpl implements Logics {
     public boolean clickCell(Pair<Integer, Integer> coordinates) {
         return this.grid.clickCell(grid.getCells().stream()
                 .filter(cell -> cell.getCoordinates().equals(coordinates))
-                .findFirst().get());
+                .findFirst()
+                .orElseThrow());
     }
 
     @Override
     public void toggleFlag(Pair<Integer, Integer> coordinates) {
         this.grid.getCells().stream()
                 .filter(cell -> cell.getCoordinates().equals(coordinates))
-                .findFirst().get().toggleFlag();
+                .findFirst()
+                .orElseThrow().toggleFlag();
     }
 
     @Override
     public int getAdjacentBombs(Pair<Integer, Integer> coordinates) {
        Cell targetCell = this.grid.getCells().stream()
                 .filter(cell -> cell.getCoordinates().equals(coordinates))
-                .findFirst().get();
+                .findFirst()
+                .orElseThrow();
         return targetCell.getCounterOfAdjacentBombs();
 
     }
