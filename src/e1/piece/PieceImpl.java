@@ -1,18 +1,18 @@
 package e1.piece;
 
-import e1.strategy.PieceStrategy;
+import e1.strategy.MovementStrategy;
 
 public class PieceImpl implements Piece{
-    private PieceStrategy pieceStrategy;
+    private MovementStrategy movementStrategy;
     private PiecePosition piecePosition;
-    public PieceImpl(PieceStrategy pieceStrategy, PiecePosition piecePosition) {
-        this.pieceStrategy = pieceStrategy;
+    public PieceImpl(MovementStrategy movementStrategy, PiecePosition piecePosition) {
+        this.movementStrategy = movementStrategy;
         this.piecePosition = piecePosition;
     }
 
     @Override
-    public PieceStrategy getStrategy() {
-        return this.pieceStrategy;
+    public MovementStrategy getStrategy() {
+        return this.movementStrategy;
     }
 
     @Override

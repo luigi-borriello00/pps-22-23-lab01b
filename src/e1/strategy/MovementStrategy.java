@@ -2,7 +2,7 @@ package e1.strategy;
 
 import e1.piece.PiecePosition;
 
-public interface PieceStrategy {
+public interface MovementStrategy {
 
     /**
      * @param newPosition

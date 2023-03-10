@@ -2,9 +2,8 @@ package e1;
 
 import e1.factory.PieceFactoryImpl;
 import e1.piece.Piece;
-import e1.piece.PieceImpl;
 import e1.piece.PiecePosition;
-import e1.strategy.PieceStrategy;
+import e1.strategy.MovementStrategy;
 
 import java.util.*;
 
@@ -17,15 +16,14 @@ public class LogicsImpl implements Logics {
 	 
     public LogicsImpl(int size){
     	this.chessboardSize = size;
-        this.targetPiece = new PieceImpl(new PieceFactoryImpl().getPawnStrategy(), PiecePosition.getRandomPosition(size));
-        this.attackingPiece = new PieceImpl(new PieceFactoryImpl().getKnightStrategy(), PiecePosition.getRandomPosition(size));
+        this.targetPiece = new PieceFactoryImpl().getPawn(PiecePosition.getRandomPosition(size));
+        this.attackingPiece = new PieceFactoryImpl().getKnight(PiecePosition.getRandomPosition(size));
     }
 
-	public LogicsImpl(int size, PiecePosition attackerPiecePosition, PiecePosition targetPiecePosition, PieceStrategy strategy) {
+	public LogicsImpl(int size, PiecePosition attackerPiecePosition, PiecePosition targetPiecePosition, MovementStrategy strategy) {
 		this.chessboardSize = size;
-		this.targetPiece = new PieceImpl(new PieceFactoryImpl().getPawnStrategy(), targetPiecePosition);
-				new PiecePosition(targetPiecePosition.getX(), targetPiecePosition.getY());
-		this.attackingPiece = new PieceImpl(new PieceFactoryImpl().getKnightStrategy(), attackerPiecePosition);
+		this.targetPiece = new PieceFactoryImpl().getPawn(targetPiecePosition);
+		this.attackingPiece = new PieceFactoryImpl().getKnight(attackerPiecePosition);
 	}
     
 	@Override

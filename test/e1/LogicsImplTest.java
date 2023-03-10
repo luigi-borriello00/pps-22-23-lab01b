@@ -16,13 +16,16 @@ class LogicsImplTest {
 
     private final PieceFactory factory = new PieceFactoryImpl();
     private static final int CHESSBOARD_SIZE = 5;
-    private final Piece knight = new PieceImpl(this.factory.getKnightStrategy(), new PiecePosition(4,0));
-    private final Piece pawn = new PieceImpl(this.factory.getPawnStrategy(), new PiecePosition(0,4));
+    private Piece knight;
+    private Piece pawn;
 
 
     @BeforeEach
     void setUp(){
-        this.logics = new LogicsImpl(CHESSBOARD_SIZE, this.knight.getPosition(), this.pawn.getPosition(), this.factory.getKnightStrategy());
+        this.pawn = this.factory.getPawn(new PiecePosition(0,4));
+        this.knight = this.factory.getKnight(new PiecePosition(4,0));
+        this.logics = new LogicsImpl(CHESSBOARD_SIZE, this.knight.getPosition(), this.pawn.getPosition(), this.knight.getStrategy());
+
     }
 
     @Test

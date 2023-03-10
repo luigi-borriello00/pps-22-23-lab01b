@@ -1,15 +1,14 @@
 package e1.factory;
 
+import e1.piece.Piece;
+import e1.piece.PieceImpl;
 import e1.piece.PiecePosition;
-import e1.strategy.PieceStrategy;
+import e1.strategy.MovementStrategy;
 
-public class PieceFactoryImpl implements PieceFactory
-{
+public class PieceFactoryImpl implements PieceFactory {
     @Override
-    public PieceStrategy getKnightStrategy()
-    {
-        return new PieceStrategy(){
-
+    public Piece getKnight(PiecePosition position) {
+        return new PieceImpl(new MovementStrategy() {
             @Override
             public boolean canBeMoved(PiecePosition newPosition, PiecePosition actualPosition, int size) {
                 if (!newPosition.isOnBoard(size)) {
@@ -20,16 +19,17 @@ public class PieceFactoryImpl implements PieceFactory
                 int newY = newPosition.getY() - actualPosition.getY();
                 return newX != 0 && newY != 0 && Math.abs(newX) + Math.abs(newY) == 3;
             }
-        };
+        }, position);
     }
 
     @Override
-    public PieceStrategy getPawnStrategy() {
-        return new PieceStrategy() {
+    public Piece getPawn(PiecePosition position) {
+        return new PieceImpl(new MovementStrategy() {
             @Override
             public boolean canBeMoved(PiecePosition newPosition, PiecePosition actualPosition, int chessboardSize) {
                 return false;
             }
-        };
+        }, position);
     }
+
 }

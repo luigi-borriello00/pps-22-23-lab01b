@@ -1,10 +1,11 @@
 package e1.factory;
 
-import e1.strategy.PieceStrategy;
+import e1.piece.Piece;
+import e1.piece.PiecePosition;
 
 public interface PieceFactory {
 
-    public PieceStrategy getKnightStrategy();
+    public Piece getKnight(PiecePosition position);
 
-    public PieceStrategy getPawnStrategy();
+    public Piece getPawn(PiecePosition position);
 }

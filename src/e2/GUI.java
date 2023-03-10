@@ -76,6 +76,8 @@ public class GUI extends JFrame {
 
 
             // disable the button
+            entry.getKey().setEnabled(false);
+            this.drawMineCell(entry.getValue(), entry.getKey());
     	}
     }
 
@@ -117,8 +119,7 @@ public class GUI extends JFrame {
             // if this button has a flag, put the flag
             this.drawCellWithFlag(entryCell, entry.getKey());
             this.drawClickedCell(entryCell, entry.getKey());
-            // if this button is a mine, draw it "*"
-            this.drawMineCell(entryCell, entry.getKey());
+
 
     	}
     }

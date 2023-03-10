@@ -9,17 +9,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PieceStrategyTest {
+class MovementStrategyTest {
 
     private final int SIZE = 5;
     private final Pair<Integer, Integer> piecePosition = new Pair<>(0, 4);
-    private PieceStrategy strategy;
-    private PieceFactory factory;
+    private MovementStrategy strategy;
 
     @BeforeEach
     void setUp() {
-        this.factory = new PieceFactoryImpl();
-        this.strategy = factory.getKnightStrategy();
+        PieceFactory factory = new PieceFactoryImpl();
+        this.strategy = factory.getKnight(PiecePosition.getRandomPosition(this.SIZE)).getStrategy();
     }
 
     @Test

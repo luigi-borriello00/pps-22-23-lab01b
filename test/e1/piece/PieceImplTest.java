@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PieceImplTest {
 
-    Piece piece;
-    PieceFactory factory;
+    private Piece piece;
+    private PieceFactory factory;
 
     @BeforeEach
     void setUp() {
         this.factory = new PieceFactoryImpl();
-        this.piece = new PieceImpl(factory.getKnightStrategy(), new PiecePosition(0, 0));
+        this.piece = this.factory.getKnight(new PiecePosition(0, 0));
     }
 
     @Test

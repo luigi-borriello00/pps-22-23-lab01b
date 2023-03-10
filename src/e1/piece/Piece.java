@@ -1,10 +1,10 @@
 package e1.piece;
 
-import e1.strategy.PieceStrategy;
+import e1.strategy.MovementStrategy;
 
 public interface Piece {
 
-    PieceStrategy getStrategy();
+    MovementStrategy getStrategy();
 
     PiecePosition getPosition();
 
