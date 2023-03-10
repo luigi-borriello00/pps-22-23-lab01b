@@ -3,7 +3,7 @@ package e1.piece;
 import e1.strategy.MovementStrategy;
 
 public class PieceImpl implements Piece{
-    private MovementStrategy movementStrategy;
+    private final MovementStrategy movementStrategy;
     private PiecePosition piecePosition;
     public PieceImpl(MovementStrategy movementStrategy, PiecePosition piecePosition) {
         this.movementStrategy = movementStrategy;
