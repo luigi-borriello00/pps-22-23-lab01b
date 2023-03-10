@@ -13,8 +13,8 @@ class PieceStrategyTest {
 
     private final int SIZE = 5;
     private final Pair<Integer, Integer> piecePosition = new Pair<>(0, 4);
-    PieceStrategy strategy;
-    PieceFactory factory;
+    private PieceStrategy strategy;
+    private PieceFactory factory;
 
     @BeforeEach
     void setUp() {

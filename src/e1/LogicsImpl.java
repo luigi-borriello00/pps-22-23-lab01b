@@ -12,12 +12,10 @@ public class LogicsImpl implements Logics {
 
 	private final Piece targetPiece;
 	private final Piece attackingPiece;
-	private final PieceStrategy attackerPieceStrategy;
 	private final Random random = new Random();
 	private final int chessboardSize;
 	 
     public LogicsImpl(int size){
-		this.attackerPieceStrategy = new PieceFactoryImpl().getKnightStrategy();
     	this.chessboardSize = size;
         this.targetPiece = new PieceImpl(new PieceFactoryImpl().getPawnStrategy(), PiecePosition.getRandomPosition(size));
         this.attackingPiece = new PieceImpl(new PieceFactoryImpl().getKnightStrategy(), PiecePosition.getRandomPosition(size));
@@ -25,7 +23,6 @@ public class LogicsImpl implements Logics {
 
 	public LogicsImpl(int size, PiecePosition attackerPiecePosition, PiecePosition targetPiecePosition, PieceStrategy strategy) {
 		this.chessboardSize = size;
-		this.attackerPieceStrategy = strategy;
 		this.targetPiece = new PieceImpl(new PieceFactoryImpl().getPawnStrategy(), targetPiecePosition);
 				new PiecePosition(targetPiecePosition.getX(), targetPiecePosition.getY());
 		this.attackingPiece = new PieceImpl(new PieceFactoryImpl().getKnightStrategy(), attackerPiecePosition);
@@ -34,7 +31,7 @@ public class LogicsImpl implements Logics {
 	@Override
 	public boolean hit(int row, int col) {
 		PiecePosition newPosition = new PiecePosition(row, col);
-		if(this.attackerPieceStrategy.canBeMoved(newPosition, this.attackingPiece.getPosition(),this.chessboardSize)){
+		if(this.attackingPiece.getStrategy().canBeMoved(newPosition, this.attackingPiece.getPosition(),this.chessboardSize)){
 			this.attackingPiece.setNewPosition(newPosition);
 			return this.targetPiece.getPosition().equals(this.attackingPiece.getPosition());
 		}
