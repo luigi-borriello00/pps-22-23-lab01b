@@ -3,7 +3,7 @@ package e1.strategy;
 import e1.Pair;
 import e1.factory.PieceFactory;
 import e1.factory.PieceFactoryImpl;
-import e1.position.PiecePosition;
+import e1.piece.PiecePosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

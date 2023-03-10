@@ -5,4 +5,6 @@ import e1.strategy.PieceStrategy;
 public interface PieceFactory {
 
     public PieceStrategy getKnightStrategy();
+
+    public PieceStrategy getPawnStrategy();
 }

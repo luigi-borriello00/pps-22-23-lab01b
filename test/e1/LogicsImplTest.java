@@ -2,7 +2,9 @@ package e1;
 
 import e1.factory.PieceFactory;
 import e1.factory.PieceFactoryImpl;
-import e1.position.PiecePosition;
+import e1.piece.Piece;
+import e1.piece.PieceImpl;
+import e1.piece.PiecePosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,33 +12,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LogicsImplTest {
 
-    private static final int CHESSBOARD_SIZE = 5;
-    private final PiecePosition knightPosition = new PiecePosition(4,0);
-    private final PiecePosition pawnPosition =new PiecePosition(0,4);
-    private final PieceFactory factory = new PieceFactoryImpl();
     private Logics logics;
+
+    private final PieceFactory factory = new PieceFactoryImpl();
+    private static final int CHESSBOARD_SIZE = 5;
+    private final Piece knight = new PieceImpl(this.factory.getKnightStrategy(), new PiecePosition(4,0));
+    private final Piece pawn = new PieceImpl(this.factory.getPawnStrategy(), new PiecePosition(0,4));
 
 
     @BeforeEach
     void setUp(){
-        this.logics = new LogicsImpl(CHESSBOARD_SIZE, this.knightPosition, this.pawnPosition, this.factory.getKnightStrategy());
+        this.logics = new LogicsImpl(CHESSBOARD_SIZE, this.knight.getPosition(), this.pawn.getPosition(), this.factory.getKnightStrategy());
     }
 
     @Test
     void testHasPawn(){
         assertFalse(this.logics.hasPawn(0,0));
-        assertTrue(this.logics.hasPawn(this.pawnPosition.getX(), this.pawnPosition.getY()));
+        assertTrue(this.logics.hasPawn(this.pawn.getPosition().getX(), this.pawn.getPosition().getY()));
     }
 
     @Test
     void testHasKnight(){
         assertFalse(this.logics.hasKnight(0,0));
-        assertTrue(this.logics.hasKnight(this.knightPosition.getX(), this.knightPosition.getY()));
+        assertTrue(this.logics.hasKnight(this.knight.getPosition().getX(), this.knight.getPosition().getY()));
     }
 
     @Test
     void testCantKnightHit(){
-        assertFalse(this.logics.hit(this.pawnPosition.getX(), this.pawnPosition.getY()));
+        assertFalse(this.logics.hit(this.pawn.getPosition().getX(), this.pawn.getPosition().getY()));
     }
 
     @Test

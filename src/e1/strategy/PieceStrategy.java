@@ -1,7 +1,6 @@
 package e1.strategy;
 
-import e1.Pair;
-import e1.position.PiecePosition;
+import e1.piece.PiecePosition;
 
 public interface PieceStrategy {
 

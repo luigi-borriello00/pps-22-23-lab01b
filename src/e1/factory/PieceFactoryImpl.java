@@ -1,6 +1,6 @@
 package e1.factory;
 
-import e1.position.PiecePosition;
+import e1.piece.PiecePosition;
 import e1.strategy.PieceStrategy;
 
 public class PieceFactoryImpl implements PieceFactory
@@ -19,6 +19,16 @@ public class PieceFactoryImpl implements PieceFactory
                 int newX = newPosition.getX() - actualPosition.getX();
                 int newY = newPosition.getY() - actualPosition.getY();
                 return newX != 0 && newY != 0 && Math.abs(newX) + Math.abs(newY) == 3;
+            }
+        };
+    }
+
+    @Override
+    public PieceStrategy getPawnStrategy() {
+        return new PieceStrategy() {
+            @Override
+            public boolean canBeMoved(PiecePosition newPosition, PiecePosition actualPosition, int chessboardSize) {
+                return false;
             }
         };
     }
